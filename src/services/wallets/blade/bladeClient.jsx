@@ -140,6 +140,32 @@ class BladeWallet {
       });
   }
 
+  async executeContractFunctionWP(contractId, functionName, gasLimit) {
+    const bladeSigner = bladeConnector.getSigner();
+    if (!bladeSigner) {
+      return null;
+    }
+
+    // Grab the topic and account to sign from the last pairing event
+    const tx = new ContractExecuteTransaction()
+      .setContractId(contractId)
+      .setGas(gasLimit)
+      .setFunction(functionName);
+
+    const txFrozen = await tx.freezeWithSigner(bladeSigner);
+    const transactionId = await txFrozen
+      .executeWithSigner(bladeSigner)
+      .then((txResult) => txResult.transactionId)
+      .catch((error) => {
+        console.log(error.message ? error.message : error);
+        return null;
+      });
+
+    // in order to read the contract call results, you will need to query the contract call's results form a mirror node using the transaction id
+    // after getting the contract call results, use ethers and abi.decode to decode the call_result
+    return transactionId;
+  }
+
   // Purpose: build contract execute transaction and send to hashconnect for signing and execution
   // Returns: Promise<TransactionId | null>
   async executeContractFunction(

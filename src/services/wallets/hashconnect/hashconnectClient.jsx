@@ -75,7 +75,9 @@ class HashConnectWallet {
       .freezeWithSigner(signer);
 
     const txResult = await associateTokenTransaction.executeWithSigner(signer);
-    return txResult && txResult.transactionId ? txResult.transactionId : txResult;
+    return txResult && txResult.transactionId
+      ? txResult.transactionId
+      : txResult;
   }
 
   async callContractFunction(
@@ -106,6 +108,30 @@ class HashConnectWallet {
 
     const txResult = await tx.executeWithSigner(signer);
     return txResult.transactionId;
+  }
+
+  async executeContractFunctionWP(contractId, functionName, gasLimit) {
+    const pairingData =
+      hashConnect.hcData.pairingData[hashConnect.hcData.pairingData.length - 1];
+
+    const provider = hashConnect.getProvider(
+      hederaNetwork,
+      pairingData.topic,
+      pairingData.accountIds[0]
+    );
+    const signer = hashConnect.getSigner(provider);
+
+    const tx = new ContractExecuteTransaction()
+      .setContractId(contractId)
+      .setGas(gasLimit)
+      .setFunction(functionName);
+
+    const txFrozen = await tx.freezeWithSigner(signer);
+    await txFrozen.executeWithSigner(signer);
+
+    // in order to read the contract call results, you will need to query the contract call's results form a mirror node using the transaction id
+    // after getting the contract call results, use ethers and abi.decode to decode the call_result
+    return txFrozen.transactionId;
   }
 
   // Purpose: build contract execute transaction and send to hashconnect for signing and execution

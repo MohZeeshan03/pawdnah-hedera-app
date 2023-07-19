@@ -193,6 +193,26 @@ class MetaMaskWallet {
     return hash;
   }
 
+  async executeContractFunctionWP(contractId, functionName, gasLimit) {
+    const provider = getProvider();
+    const signer = await provider.getSigner();
+    const abi = [`function ${functionName}()`];
+    const contract = new ethers.Contract(
+      `0x${contractId.toSolidityAddress()}`,
+      abi,
+      signer
+    );
+    try {
+      const txResult = await contract[functionName]({
+        gasLimit: gasLimit === -1 ? undefined : gasLimit,
+      });
+      return txResult.hash;
+    } catch (error) {
+      console.warn(error.message ? error.message : error);
+      return null;
+    }
+  }
+
   // Purpose: build contract execute transaction and send to hashconnect for signing and execution
   // Returns: Promise<TransactionId | null>
   async executeContractFunction(
