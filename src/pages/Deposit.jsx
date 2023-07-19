@@ -10,6 +10,7 @@ import {
 import { ContractFunctionParameterBuilder } from "../services/wallets/contractFunctionParameterBuilder";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Animation from "../components/Animation";
 
 export default function Deposit() {
      const [updater,setUpdater] = useState(1)
@@ -73,7 +74,7 @@ export default function Deposit() {
           <section className="sl-container">
                <div className="max-w-md w-full mx-auto sm:mt-20 mt-10">
                     <h2 className="md:text-3xl sm:text-2xl text-xl font-bold uppercase">Deposit</h2>
-                    <h5>Your Token Balance : {stats.tokenBalance ? parseFloat(stats.tokenBalance) : 0 }</h5>
+                    <h5>Your Token Balance : {stats.loading ? <Animation/> : stats.tokenBalance ? parseFloat(stats.tokenBalance) : 0 }</h5>
                     <form className="md:text-xl sm:text-lg text-base font-medium mt-2 md:space-y-6 sm:space-y-4 space-y-2">
                          <div className="relative bg-white rounded-lg border border-gray-200 px-3 py-2">
                               <label htmlFor="from" className="text-sm">Amount</label>

@@ -17,7 +17,7 @@ export default function ControlPanel() {
 
      const handlePaused = async () => {
           try{
-               let txId2 = await walletInterface.executeContractFunction(ContractId.fromString(contractId), "pause" , 5000000)
+               let txId2 = await walletInterface.executeContractFunctionWP(ContractId.fromString(contractId), "pause" , 5000000)
 
                if (!txId2) {
                     toast.error('Transaction Failed');
@@ -31,7 +31,21 @@ export default function ControlPanel() {
 
      const handleUnPaused = async () => {
           try{
-               let txId2 = await walletInterface.executeContractFunction(ContractId.fromString(contractId), "unpause", 5000000);
+               let txId2 = await walletInterface.executeContractFunctionWP(ContractId.fromString(contractId), "unpause", 5000000);
+
+               if (!txId2) {
+                    toast.error('Transaction Failed');
+                    return false;
+               }
+          }
+          catch(error){
+               toast.error(error.reason ? error.reason : error.message);
+          }
+     }
+
+     const handleRevert = async () => {
+          try{
+               let txId2 = await walletInterface.executeContractFunctionWP(ContractId.fromString(contractId), "revertState", 5000000);
 
                if (!txId2) {
                     toast.error('Transaction Failed');
@@ -92,16 +106,16 @@ export default function ControlPanel() {
                     Pause
                </button>
                <button type="button" onClick={() => handleUnPaused()} className="w-fit  bg-blue-500 text-white py-2 md:px-9 sm:px-6 px-4 rounded-3xl hover:bg-blue-700 hover:text-white sl-animated-lg">Unpause</button>
-               <button type="button" className="w-fit  bg-blue-500 text-white py-2 md:px-9 sm:px-6 px-4 rounded-3xl hover:bg-blue-700 hover:text-white sl-animated-lg">Revert Function</button>
+               <button type="button" onClick={() => handleRevert()}  className="w-fit  bg-blue-500 text-white py-2 md:px-9 sm:px-6 px-4 rounded-3xl hover:bg-blue-700 hover:text-white sl-animated-lg">Revert Function</button>
                
-               <input type="text" placeholder="0xa8c1bc6aecaf86cac331b595bee65d0985927564" class="md:text-4xl sm:text-3xl text-2xl pt-1 border w-50 placeholder:text-gray-400" value={oaddress} onChange={(e)=> setOaddress(e.target.value)} />
+               <input type="text" placeholder="0xa8c1bc6aecaf86cac331b595bee65d0985927564" class="border h-12 placeholder:text-gray-400 pt-1 control-input" value={oaddress} onChange={(e)=> setOaddress(e.target.value)} />
                <button type="button" onClick={() => handleTransferOwner()} className="w-fit  bg-blue-500 text-white py-2 md:px-9 sm:px-6 px-4 rounded-3xl hover:bg-blue-700 hover:text-white sl-animated-lg">Transfer Ownership</button>
                
-               <input type="text" placeholder="0xa8c1bc6aecaf86cac331b595bee65d0985927564" class="md:text-4xl sm:text-3xl text-2xl pt-1 border w-50 placeholder:text-gray-400" value={caddress} onChange={(e)=> setCaddress(e.target.value)}  />
+               <input type="text" placeholder="0xa8c1bc6aecaf86cac331b595bee65d0985927564" class="border h-12 placeholder:text-gray-400 pt-1 control-input" value={caddress} onChange={(e)=> setCaddress(e.target.value)}  />
                <button type="button" onClick={() => handleChangeWallet()} className="w-fit  bg-blue-500 text-white py-2 md:px-9 sm:px-6 px-4 rounded-3xl hover:bg-blue-700 hover:text-white sl-animated-lg">Change Wallet Address</button>
                
                
-               <input type="text" placeholder="0.0" class="md:text-4xl sm:text-3xl text-2xl pt-1 border w-50 placeholder:text-gray-400"  value={amount} onChange={(e)=> setAmount(e.target.value)} />
+               <input type="text" placeholder="0.0" class="border h-12 placeholder:text-gray-400 pt-1 control-input"  value={amount} onChange={(e)=> setAmount(e.target.value)} />
                <button type="button" onClick={() => handleChangeDepositAmount()} className="w-fit  bg-blue-500 text-white py-2 md:px-9 sm:px-6 px-4 rounded-3xl hover:bg-blue-700 hover:text-white sl-animated-lg">Deposited Amount</button>
           </section>
      )

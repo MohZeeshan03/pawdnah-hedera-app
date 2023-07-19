@@ -3,9 +3,26 @@ import ethIcon from "../assets/img/eth.png";
 import arrow from "../assets/icons/arrow.svg";
 import logo from "../assets/icons/logo.svg";
 import { useState } from "react";
+import { useHomeStats } from "../stats/useCommon";
+import Animation from "../components/Animation";
+import { useWalletInterface } from "../services/wallets/useWalletInterface";
+import { TokenId } from "@hashgraph/sdk";
+import { tokenId } from "../config/constants";
+
 
 export default function Home() {
      const [show, setShow] = useState(false);
+     const stats = useHomeStats(1);
+     const { walletInterface } = useWalletInterface();
+
+     const handleAssociate = async () => {
+          try{
+               await walletInterface.associateToken(TokenId.fromString(tokenId),5000000);
+          }
+          catch(err){
+               console.log(err.message);
+          }
+     }
 
      return (
           <div className="relative bg-black text-white min-h-screen">
@@ -49,7 +66,8 @@ export default function Home() {
                                         <input id="to" type="text" placeholder="$42.5" className="md:text-4xl sm:text-3xl text-2xl pt-1 placeholder:text-gray-400" />
                                         <span className="absolute right-2 bottom-2 flex items-center bg-gray-700 md:text-xl sm:text-lg text-base sm:font-semibold tracking-wide sm:px-4 px-2 sm:py-2 py-1 rounded-lg"><img src={ethIcon} alt="ETH" className="sm:w-5 w-4 mr-1" /> USDC</span>
                                    </div>
-                                   <button className="w-full font-medium bg-blue-500 text-white py-3 sm:px-6 px-4 rounded-lg hover:bg-blue-700 sl-animated-lg">Submit</button>
+                                   <button type="button" onClick={()=>handleAssociate()} className="w-full font-medium bg-blue-500 text-white py-3 sm:px-6 px-4 rounded-lg hover:bg-blue-700 sl-animated-lg">Associate USDC</button>
+                                   <span className="text-sm" style={{"color" : "#fe5050"}}>Note : first you need associate usdc token then you can start deposit , if you already done then ingonre </span>
                               </form>
                          </div>
                     </div>
@@ -57,20 +75,20 @@ export default function Home() {
                <section className=" max-w-5xl px-3 mx-auto pt-10 my-28">
                     <div className="md:flex md:justify-between grid grid-cols-2 gap-10 mx-auto">
                          <div className="space-y-1">
-                              <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">$0.69</h2>
-                              <p className="text-sm uppercase font-medium text-gray-400">price</p>
+                              <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation/> : stats.depositAmount ? `$${parseFloat(stats.depositAmount / Math.pow(10,6))}` : 0 }</h2>
+                              <p className="text-sm uppercase font-medium text-gray-400">Deposit Amount</p>
                          </div>
                          <div className="space-y-1">
-                              <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">$0.69</h2>
-                              <p className="text-sm uppercase font-medium text-gray-400">price</p>
+                              <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation/> : stats.totalDeposits ? `$${parseFloat(stats.totalDeposits / Math.pow(10,6))}` : 0 }</h2>
+                              <p className="text-sm uppercase font-medium text-gray-400">Total Deposits</p>
                          </div>
                          <div className="space-y-1">
-                              <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">$0.69</h2>
-                              <p className="text-sm uppercase font-medium text-gray-400">price</p>
+                              <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation/> : stats.totalWithdrawals ? `$${parseFloat(stats.totalWithdrawals / Math.pow(10,6))}` : 0 }</h2>
+                              <p className="text-sm uppercase font-medium text-gray-400">Total Withdrawals</p>
                          </div>
                          <div className="space-y-1">
-                              <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">$0.69</h2>
-                              <p className="text-sm uppercase font-medium text-gray-400">price</p>
+                              <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation/> : stats.totalHistoricalDeposits ? `$${parseFloat(stats.totalHistoricalDeposits / Math.pow(10,6))}` : 0 }</h2>
+                              <p className="text-sm uppercase font-medium text-gray-400">Total Historical Deposits</p>
                          </div>
                     </div>
                </section>

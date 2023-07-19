@@ -133,3 +133,72 @@ export const useWithdrawStats = (updater) => {
 
     return stats;
 }
+
+
+export const useHomeStats = (updater) => {
+    
+    const [stats, setStats] = useState({
+        totalDeposits: 0,
+        depositAmount : 0,
+        totalHistoricalDeposits : 0,
+        totalWithdrawals : 0,
+        loading : true
+    });
+
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                
+                //Deposit Amount
+                let contractQueryTx = new ContractCallQuery()
+                    .setContractId(contractId)
+                    .setGas(500000)
+                    .setFunction("depositAmount");
+                let contractQuerySubmit = await contractQueryTx.execute(client);
+                let depositAmountResult = contractQuerySubmit.getInt256();
+
+                let contractQueryTx1 = new ContractCallQuery()
+                    .setContractId(contractId)
+                    .setGas(500000)
+                    .setFunction("totalDeposits");
+                let contractQuerySubmit1 = await contractQueryTx1.execute(client);
+                let depositAmountResult1 = contractQuerySubmit1.getInt256();
+
+                let contractQueryTx2 = new ContractCallQuery()
+                    .setContractId(contractId)
+                    .setGas(500000)
+                    .setFunction("totalHistoricalDeposits");
+                let contractQuerySubmit2 = await contractQueryTx2.execute(client);
+                let depositAmountResult2 = contractQuerySubmit2.getInt256();
+
+                let contractQueryTx3 = new ContractCallQuery()
+                    .setContractId(contractId)
+                    .setGas(500000)
+                    .setFunction("totalWithdrawals");
+                let contractQuerySubmit3 = await contractQueryTx3.execute(client);
+                let depositAmountResult3 = contractQuerySubmit3.getInt256();
+
+                
+
+                setStats({
+                    totalDeposits: depositAmountResult1.toString(),
+                    depositAmount : depositAmountResult.toString(),
+                    totalHistoricalDeposits : depositAmountResult2.toString(),
+                    totalWithdrawals : depositAmountResult3.toString(),
+                    loading : false
+                })
+                
+            }
+            catch (err) {
+                console.log(err.message);
+            }
+        }
+        
+       
+        fetch()
+    
+    }, [updater])
+
+    return stats;
+}

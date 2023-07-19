@@ -1,4 +1,4 @@
-import { AccountId, ContractId } from "@hashgraph/sdk";
+import {  ContractId } from "@hashgraph/sdk";
 import { ethers } from "ethers";
 import { useContext, useEffect } from "react";
 import { appConfig } from "../../../config";

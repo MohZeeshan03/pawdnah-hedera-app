@@ -21,7 +21,7 @@ export default function Faqs() {
                          <h2 className="wow fadeInDown md:text-3xl sm:text-2xl text-xl tracking-wide font-bold md:pb-10 sm:pb-6 pb-4">Frequently Asked Questions (FAQs)</h2>
                          <div className="md:space-y-9 sm:space-y-6 space-y-3">
                               {faqList && faqList.map((faq, index) => (
-                                   index % 2 == 0 ? <Faq classes="wow fadeInRight" key={index} title={faq.title} text={faq.text} /> : <Faq classes="wow fadeInLeft" key={index} title={faq.title} text={faq.text} />
+                                   index % 2 === 0 ? <Faq classes="wow fadeInRight" key={index} title={faq.title} text={faq.text} /> : <Faq classes="wow fadeInLeft" key={index} title={faq.title} text={faq.text} />
                               ))}</div>
                     </div>
                </section>

@@ -1,4 +1,4 @@
-import { HashConnect, HashConnectTypes } from "hashconnect";
+import { HashConnect } from "hashconnect";
 import { HashconnectContext } from "../../../contexts/HashconnectContext";
 import { useCallback, useContext, useEffect } from "react";
 import {
@@ -8,7 +8,6 @@ import {
   TransferTransaction,
   ContractCallQuery,
 } from "@hashgraph/sdk";
-import { ContractFunctionParameterBuilder } from "../contractFunctionParameterBuilder";
 import { appConfig } from "../../../config";
 
 const currentNetworkConfig = appConfig.networks.testnet;
