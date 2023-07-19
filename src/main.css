@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .sl-container {
+    @apply relative xl:max-w-[1280px] lg:max-w-[1024px] md:max-w-[960px] max-w-[540px] w-full md:px-6 sm:px-4 px-2 mx-auto z-[1];
+  }
+
+  /* ANIMATION */
+  .sl-animated-md {
+    @apply transition duration-300 before:transition before:duration-300 after:transition after:duration-300;
+  }
+
+  .sl-animated-lg {
+    @apply transition-all duration-500 ease-in-out before:transition-all before:duration-500 before:ease-in-out after:transition-all after:duration-500 after:ease-in-out;
+  }
+
+  .sl-animated-xl {
+    @apply transition-all duration-700 ease-in-out before:transition-all before:duration-700 before:ease-in-out after:transition-all after:duration-700 after:ease-in-out;
+  }
+}
+
+@layer base {
+  body {
+    @apply text-slate-950 bg-gray-100 sm:text-base text-sm;
+  }
+
+  a,
+  button {
+    @apply inline-block cursor-pointer;
+  }
+
+  input,
+  select,
+  textarea {
+    @apply w-full outline-none bg-transparent;
+  }
+
+  img {
+    @apply w-full h-full;
+  }
+}
