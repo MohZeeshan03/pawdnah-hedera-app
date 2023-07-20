@@ -97,7 +97,7 @@ export default function Home() {
                                    <p className="text-sm uppercase font-medium text-gray-400">Total Deposits</p>
                               </div>
                               <div className="space-y-1">
-                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.totalWithdrawals ? `$${parseFloat(stats.totalWithdrawals / Math.pow(10, TOKEN_DECIMALS))}` : 0}</h2>
+                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.totalWithdrawals ? `${parseFloat(stats.totalWithdrawals)}` : 0}</h2>
                                    <p className="text-sm uppercase font-medium text-gray-400">Total Withdrawals</p>
                               </div>
                               <div className="space-y-1">

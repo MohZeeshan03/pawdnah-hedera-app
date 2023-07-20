@@ -14,10 +14,11 @@ import { useNavigate } from "react-router-dom";
 export default function ControlPanel() {
      const navigate = useNavigate();
      const { walletInterface } = useWalletInterface();
+     const [updater,setUpdater] = useState(1)
      const [oaddress,setOaddress] = useState('');
      const [caddress,setCaddress] = useState('');
      const [amount,setAmount] = useState(0);
-     const stats = useOwnerStats(1);
+     const stats = useOwnerStats(updater);
      
 
      useEffect(()=>{
@@ -76,6 +77,7 @@ export default function ControlPanel() {
                     toast.error('Transaction Failed');
                     return false;
                }
+               setUpdater(Math.random());
           }
           catch(error){
                toast.error(error.reason ? error.reason : error.message);
