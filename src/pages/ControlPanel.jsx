@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { contractId } from "../config/constants";
 import { useWalletInterface } from "../services/wallets/useWalletInterface";
 import {
@@ -7,13 +7,24 @@ import {
 import { ContractFunctionParameterBuilder } from "../services/wallets/contractFunctionParameterBuilder";
 import { toast } from "react-toastify";
 import { ethers } from "ethers";
+import { useOwnerStats } from "../stats/useCommon";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ControlPanel() {
+     const navigate = useNavigate();
      const { walletInterface } = useWalletInterface();
      const [oaddress,setOaddress] = useState('');
      const [caddress,setCaddress] = useState('');
      const [amount,setAmount] = useState(0);
+     const stats = useOwnerStats(1);
+     
+
+     useEffect(()=>{
+          if(!stats.isOwner){
+               return navigate("/");
+          }
+     },[stats])
 
      const handlePaused = async () => {
           try{

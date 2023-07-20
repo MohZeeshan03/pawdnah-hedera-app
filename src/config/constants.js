@@ -20,6 +20,21 @@ export const trimAddress = (addr) => {
     return `${addr.substring(0, 6)}...${addr.substring(addr.length - 4)}`;
 }
 
+export const formatPrice = (num) => {
+    try {
+      if (parseFloat(num) > 100) {
+        return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 8 }).format(num);
+      }
+      else {
+        return parseFloat(parseFloat(num).toFixed(8));
+      }
+    }
+    catch (err) {
+      console.log(err.message);
+      return 0;
+    }
+  }
+
 
 export const ABI = [
     "constructor()",
