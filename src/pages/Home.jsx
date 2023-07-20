@@ -6,6 +6,7 @@ import logo from "../assets/icons/logo.svg";
 import { useState } from "react";
 import { useHomeStats } from "../stats/useCommon";
 import Animation from "../components/Animation";
+import { TOKEN_DECIMALS } from "../config/constants";
 // import { useWalletInterface } from "../services/wallets/useWalletInterface";
 // import { trimAddress } from "../config/constants";
 // import { WalletSelectionDialog } from "../components/WalletSelectionDialog";
@@ -41,20 +42,20 @@ export default function Home() {
                               <div className={`${show ? "block" : "hidden"} absolute top-16 left-0 w-full px-4 z-50`}>
                                    <ul className="rounded-xl backdrop-blur-sm bg-slate-700/70 font-medium p-6 space-y-6">
                                         <li><NavLink to={"/"}>Home</NavLink></li>
-                                        <li><NavLink to={"/associate"}>Associate</NavLink></li>
                                         <li><NavLink to={"/deposit"}>Deposit</NavLink></li>
                                         <li><NavLink to={"/withdraw"}>Withdraw</NavLink></li>
-                                        {/* <li><NavLink to={"/faqs"}>FAQs</NavLink></li> */}
+                                        <li><NavLink to={"/associate"}>Associate</NavLink></li>
+                                        <li><NavLink to={"/faqs"}>FAQs</NavLink></li>
                                         {/* <li><NavLink to={"/control-panel"}>Control Panel</NavLink></li> */}
                                    </ul>
                               </div>
                               <ul className="md:flex hidden flex-row gap-4">
                                    <li><NavLink to={"/"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Home</NavLink></li>
-                                   <li><NavLink to={"/associate"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Associate</NavLink></li>
                                    <li><NavLink to={"/deposit"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Deposit</NavLink></li>
                                    <li><NavLink to={"/withdraw"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Withdraw</NavLink></li>
+                                   <li><NavLink to={"/associate"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Associate</NavLink></li>
+                                   <li><NavLink to={"/faqs"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>FAQs</NavLink></li>
                                    
-                                   {/* <li><NavLink to={"/faqs"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>FAQs</NavLink></li> */}
                                    {/* <li><NavLink to={"/control-panel"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Control Panel</NavLink></li> */}
                               </ul>
                          </div>
@@ -88,19 +89,19 @@ export default function Home() {
                     <section className=" max-w-5xl px-3 mx-auto pt-10 my-28">
                          <div className="md:flex md:justify-between grid grid-cols-2 gap-10 mx-auto">
                               <div className="space-y-1">
-                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.depositAmount ? `$${parseFloat(stats.depositAmount / Math.pow(10, 6))}` : 0}</h2>
+                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.depositAmount ? `$${parseFloat(stats.depositAmount / Math.pow(10, TOKEN_DECIMALS))}` : 0}</h2>
                                    <p className="text-sm uppercase font-medium text-gray-400">Deposit Amount</p>
                               </div>
                               <div className="space-y-1">
-                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.totalDeposits ? `$${parseFloat(stats.totalDeposits / Math.pow(10, 6))}` : 0}</h2>
+                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.totalDeposits ? `$${parseFloat(stats.totalDeposits / Math.pow(10, TOKEN_DECIMALS))}` : 0}</h2>
                                    <p className="text-sm uppercase font-medium text-gray-400">Total Deposits</p>
                               </div>
                               <div className="space-y-1">
-                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.totalWithdrawals ? `$${parseFloat(stats.totalWithdrawals / Math.pow(10, 6))}` : 0}</h2>
+                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.totalWithdrawals ? `$${parseFloat(stats.totalWithdrawals / Math.pow(10, TOKEN_DECIMALS))}` : 0}</h2>
                                    <p className="text-sm uppercase font-medium text-gray-400">Total Withdrawals</p>
                               </div>
                               <div className="space-y-1">
-                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.totalHistoricalDeposits ? `$${parseFloat(stats.totalHistoricalDeposits / Math.pow(10, 6))}` : 0}</h2>
+                                   <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">{stats.loading ? <Animation /> : stats.totalHistoricalDeposits ? `$${parseFloat(stats.totalHistoricalDeposits / Math.pow(10, TOKEN_DECIMALS))}` : 0}</h2>
                                    <p className="text-sm uppercase font-medium text-gray-400">Total Historical Deposits</p>
                               </div>
                          </div>

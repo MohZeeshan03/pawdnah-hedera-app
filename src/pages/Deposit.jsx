@@ -1,5 +1,5 @@
 import ethIcon from "../assets/img/eth.png";
-import { contractId, tokenId } from "../config/constants";
+import { TOKEN_DECIMALS, contractId, tokenId } from "../config/constants";
 import { useCommonStats } from "../stats/useCommon";
 import { useWalletInterface } from "../services/wallets/useWalletInterface";
 import {
@@ -78,7 +78,7 @@ export default function Deposit() {
                     <form className="md:text-xl sm:text-lg text-base font-medium mt-2 md:space-y-6 sm:space-y-4 space-y-2">
                          <div className="relative bg-white rounded-lg border border-gray-200 px-3 py-2">
                               <label htmlFor="from" className="text-sm">Amount</label>
-                              <input disabled={true} value={stats.depositAmount / Math.pow(10,6)} type="text" placeholder="0.0" className="md:text-4xl sm:text-3xl text-2xl pt-1 placeholder:text-gray-400" />
+                              <input disabled={true} value={stats.depositAmount / Math.pow(10,TOKEN_DECIMALS)} type="text" placeholder="0.0" className="md:text-4xl sm:text-3xl text-2xl pt-1 placeholder:text-gray-400" />
                               <span className="absolute right-2 bottom-2 flex items-center bg-gray-100 md:text-xl sm:text-lg text-base sm:font-semibold tracking-wide sm:px-4 px-2 sm:py-2 py-1 rounded-lg"><img src={ethIcon} alt="ETH" className="sm:w-5 w-4 mr-1" /> USDC</span>
                          </div>
                          <div className="relative bg-white rounded-lg border border-gray-200 px-3 py-2">

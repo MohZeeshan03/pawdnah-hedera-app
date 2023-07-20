@@ -2,7 +2,8 @@
 export const contractAddress = "0x0000000000000000000000000000000000eb533f";
 export const contractId = "0.0.15422271"
 export const tokenId = "0.0.15422247"
-export const tokenAddress = "0x0000000000000000000000000000000000eb5327"
+export const tokenAddress = "0x0000000000000000000000000000000000eb5327";
+export const TOKEN_DECIMALS = 6;
 
 // TOKEN INFO
 

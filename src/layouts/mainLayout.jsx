@@ -50,9 +50,9 @@ export default function MainLayout() {
                          <div className={`${show ? "block" : "hidden"} absolute top-16 left-0 w-full px-4 z-50`}>
                               <ul className="rounded-xl backdrop-blur-sm bg-slate-100/70 font-medium p-6 space-y-6">
                                    <li><NavLink onClick={() => { show ? setShow(false) : setShow(true) }} to={"/"}>Home</NavLink></li>
-                                   <li><NavLink onClick={() => { show ? setShow(false) : setShow(true) }} to={"/associate"}>Associate</NavLink></li>
                                    <li><NavLink onClick={() => { show ? setShow(false) : setShow(true) }} to={"/deposit"}>Deposit</NavLink></li>
                                    <li><NavLink onClick={() => { show ? setShow(false) : setShow(true) }} to={"/withdraw"}>Withdraw</NavLink></li>
+                                   <li><NavLink onClick={() => { show ? setShow(false) : setShow(true) }} to={"/associate"}>Associate</NavLink></li>
                                    <li><NavLink onClick={() => { show ? setShow(false) : setShow(true) }} to={"/faqs"}>FAQs</NavLink></li>
                                    {stats.isOwner &&
                                         <li><NavLink onClick={() => { show ? setShow(false) : setShow(true) }} to={"/control-panel"}>Control Panel</NavLink></li>
@@ -61,9 +61,9 @@ export default function MainLayout() {
                          </div>
                          <ul className="md:flex hidden flex-row gap-4">
                               <li><NavLink to={"/"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg"}>Home</NavLink></li>
-                              <li><NavLink to={"/associate"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg"}>Associate</NavLink></li>
                               <li><NavLink to={"/deposit"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg"}>Deposit</NavLink></li>
                               <li><NavLink to={"/withdraw"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg"}>Withdraw</NavLink></li>
+                              <li><NavLink to={"/associate"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg"}>Associate</NavLink></li>
                               <li><NavLink to={"/faqs"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg"}>FAQs</NavLink></li>
                               {stats.isOwner &&
                                    <li><NavLink to={"/control-panel"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-gray-200 sl-animated-lg"}>Control Panel</NavLink></li>

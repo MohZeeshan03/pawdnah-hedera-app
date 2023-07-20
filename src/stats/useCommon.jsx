@@ -8,9 +8,10 @@ import {
     ContractCallQuery,
     ContractId
 } from '@hashgraph/sdk';
-import { contractAddress, contractId } from "../config/constants";
+import { TOKEN_DECIMALS, contractAddress, contractId } from "../config/constants";
 import { useWalletInterface } from "../services/wallets/useWalletInterface";
 import { ethers } from "ethers";
+
 
 
 
@@ -45,10 +46,10 @@ export const useCommonStats = (updater) => {
 
                 let tc = getContract();
                 let tokenB = await tc.balanceOf(account)
-                tokenB = tokenB.toString() / Math.pow(10, 6);
+                tokenB = tokenB.toString() / Math.pow(10, TOKEN_DECIMALS);
 
                 let tokenA = await tc.allowance(account, contractAddress)
-                tokenA = tokenA.toString() / Math.pow(10, 6);
+                tokenA = tokenA.toString() / Math.pow(10, TOKEN_DECIMALS);
 
                 //Deposit Amount
                 let contractQueryTx = new ContractCallQuery()
