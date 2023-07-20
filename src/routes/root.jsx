@@ -5,6 +5,7 @@ import Deposit from "../pages/Deposit"
 import Withdraw from "../pages/Withdraw"
 import ControlPanel from "../pages/ControlPanel"
 import Faqs from "../pages/Faqs";
+import Associate from "../pages/Associate";
 
 
 const routes = createBrowserRouter([
@@ -17,6 +18,7 @@ const routes = createBrowserRouter([
                { path: "/withdraw", element: <Withdraw /> },
                { path: "/faqs", element: <Faqs /> },
                { path: "/control-panel", element: <ControlPanel /> },
+               { path: "/associate", element: <Associate /> },
           ]
      }
 ])

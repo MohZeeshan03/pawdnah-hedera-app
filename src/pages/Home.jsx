@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import ethIcon from "../assets/img/eth.png";
 import arrow from "../assets/icons/arrow.svg";
@@ -6,30 +6,30 @@ import logo from "../assets/icons/logo.svg";
 import { useState } from "react";
 import { useHomeStats } from "../stats/useCommon";
 import Animation from "../components/Animation";
-import { useWalletInterface } from "../services/wallets/useWalletInterface";
-import { trimAddress } from "../config/constants";
-import { WalletSelectionDialog } from "../components/WalletSelectionDialog";
+// import { useWalletInterface } from "../services/wallets/useWalletInterface";
+// import { trimAddress } from "../config/constants";
+// import { WalletSelectionDialog } from "../components/WalletSelectionDialog";
 
 
 export default function Home() {
      const [show, setShow] = useState(false);
-     const [open, setOpen] = useState(false);
+     // const [open, setOpen] = useState(false);
      const stats = useHomeStats(1);
-     const { accountId, walletInterface } = useWalletInterface();
+     // const { accountId, walletInterface } = useWalletInterface();
 
-     const handleConnect = async () => {
-          if (accountId) {
-               walletInterface.disconnect();
-          } else {
-               setOpen(true);
-          }
-     };
+     // const handleConnect = async () => {
+     //      if (accountId) {
+     //           walletInterface.disconnect();
+     //      } else {
+     //           setOpen(true);
+     //      }
+     // };
 
-     useEffect(() => {
-          if (accountId) {
-               setOpen(false);
-          }
-     }, [accountId]);
+     // useEffect(() => {
+     //      if (accountId) {
+     //           setOpen(false);
+     //      }
+     // }, [accountId]);
 
      return (
           <>
@@ -41,23 +41,26 @@ export default function Home() {
                               <div className={`${show ? "block" : "hidden"} absolute top-16 left-0 w-full px-4 z-50`}>
                                    <ul className="rounded-xl backdrop-blur-sm bg-slate-700/70 font-medium p-6 space-y-6">
                                         <li><NavLink to={"/"}>Home</NavLink></li>
+                                        <li><NavLink to={"/associate"}>Associate</NavLink></li>
                                         <li><NavLink to={"/deposit"}>Deposit</NavLink></li>
                                         <li><NavLink to={"/withdraw"}>Withdraw</NavLink></li>
-                                        <li><NavLink to={"/faqs"}>FAQs</NavLink></li>
-                                        <li><NavLink to={"/control-panel"}>Control Panel</NavLink></li>
+                                        {/* <li><NavLink to={"/faqs"}>FAQs</NavLink></li> */}
+                                        {/* <li><NavLink to={"/control-panel"}>Control Panel</NavLink></li> */}
                                    </ul>
                               </div>
                               <ul className="md:flex hidden flex-row gap-4">
                                    <li><NavLink to={"/"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Home</NavLink></li>
+                                   <li><NavLink to={"/associate"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Associate</NavLink></li>
                                    <li><NavLink to={"/deposit"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Deposit</NavLink></li>
                                    <li><NavLink to={"/withdraw"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Withdraw</NavLink></li>
-                                   <li><NavLink to={"/faqs"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>FAQs</NavLink></li>
-                                   <li><NavLink to={"/control-panel"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Control Panel</NavLink></li>
+                                   
+                                   {/* <li><NavLink to={"/faqs"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>FAQs</NavLink></li> */}
+                                   {/* <li><NavLink to={"/control-panel"} className={({ isActive }) => isActive ? "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg font-semibold" : "px-4 py-2 rounded-xl hover:bg-white/5 sl-animated-lg"}>Control Panel</NavLink></li> */}
                               </ul>
                          </div>
-                         <button onClick={handleConnect} className="font-medium bg-blue-500 text-white py-2 sm:px-6 px-4 rounded-3xl hover:bg-blue-700 sl-animated-lg">
+                         {/* <button onClick={handleConnect} className="font-medium bg-blue-500 text-white py-2 sm:px-6 px-4 rounded-3xl hover:bg-blue-700 sl-animated-lg">
                               {accountId ? `Connected: ${trimAddress(accountId)}` : "Connect Wallet"}
-                         </button>
+                         </button> */}
                     </header>
                     <section className=" max-w-5xl px-3 mx-auto my-20">
                          <div className="grid md:grid-cols-2 grid-cols-1 gap-24 mx-auto">
@@ -103,7 +106,7 @@ export default function Home() {
                          </div>
                     </section>
                </div>
-               <WalletSelectionDialog open={open} onClose={() => setOpen(false)} />
+               {/* <WalletSelectionDialog open={open} onClose={() => setOpen(false)} /> */}
           </>
      )
 }

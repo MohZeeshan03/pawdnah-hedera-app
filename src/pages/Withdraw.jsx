@@ -14,18 +14,23 @@ import {
 export default function Withdraw() {
      const [updater, setUpdater] = useState(1)
      const stats = useWithdrawStats(updater);
-     const { walletInterface } = useWalletInterface();
+     const { walletInterface , accountId } = useWalletInterface();
 
 
      const handleWithdraw = async() => {
-          let txId2 = await walletInterface.executeContractFunction(ContractId.fromString(contractId), "withdraw", new ContractFunctionParameterBuilder().addParam({ type: "uint256", name: "amount", value: stats.eligibleWithdrawals.toString() }), 5000000);
+          if(accountId){
+               let txId2 = await walletInterface.executeContractFunction(ContractId.fromString(contractId), "withdraw", new ContractFunctionParameterBuilder().addParam({ type: "uint256", name: "amount", value: stats.eligibleWithdrawals.toString() }), 5000000);
 
-          if (!txId2) {
-               toast.error('Transaction Failed');
-               return false;
+               if (!txId2) {
+                    toast.error('Transaction Failed');
+                    return false;
+               }
+
+               setUpdater(Math.random())
           }
-
-          setUpdater(Math.random())
+          else{
+               toast.error('Please connect wallet')
+          }
      }
 
      return (

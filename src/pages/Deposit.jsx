@@ -3,7 +3,6 @@ import { contractId, tokenId } from "../config/constants";
 import { useCommonStats } from "../stats/useCommon";
 import { useWalletInterface } from "../services/wallets/useWalletInterface";
 import {
-     TokenId,
      ContractId
 } from '@hashgraph/sdk';
 
@@ -21,28 +20,29 @@ export default function Deposit() {
 
      const handleAssociate = async () => {
           try{
-               if(parseFloat(stats.tokenBalance) === 0){
-                    await walletInterface.associateToken(TokenId.fromString(tokenId),5000000);
-               }
-               
-               if(parseFloat(stats.depositAmount) > parseFloat(stats.allowance)){
-                    const txId = await walletInterface.getTokenApproval(tokenId, accountId, contractId, '100000000000000000000000');
-                    console.log(txId);
-                    if(!txId){
+               if(accountId){
+                    if(parseFloat(stats.depositAmount) > parseFloat(stats.allowance)){
+                         const txId = await walletInterface.getTokenApproval(tokenId, accountId, contractId, '100000000000000000000000');
+                         console.log(txId);
+                         if(!txId){
+                              toast.error('Transaction Failed');
+                              return false;  
+                         }
+                    }
+
+                         
+                    let txId2 = await walletInterface.executeContractFunction(ContractId.fromString(contractId), "deposit", new ContractFunctionParameterBuilder().addParam({ type: "uint256", name: "amount", value: stats.depositAmount.toString() }), 5000000);
+                    
+                    if(!txId2){
                          toast.error('Transaction Failed');
                          return false;  
                     }
-               }
-
                     
-               let txId2 = await walletInterface.executeContractFunction(ContractId.fromString(contractId), "deposit", new ContractFunctionParameterBuilder().addParam({ type: "uint256", name: "amount", value: stats.depositAmount.toString() }), 5000000);
-               
-               if(!txId2){
-                    toast.error('Transaction Failed');
-                    return false;  
+                    setUpdater(Math.random())
                }
-               
-               setUpdater(Math.random())
+               else{
+                    toast.error('Please connect wallet')
+               }
           }
           catch(err){
                console.log(err.message);

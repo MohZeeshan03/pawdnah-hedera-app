@@ -7,9 +7,10 @@ import {
     ContractFunctionParameters,
     ContractCallQuery,
     ContractId
-  } from '@hashgraph/sdk';
+} from '@hashgraph/sdk';
 import { contractAddress, contractId } from "../config/constants";
 import { useWalletInterface } from "../services/wallets/useWalletInterface";
+import { ethers } from "ethers";
 
 
 
@@ -23,30 +24,32 @@ export const useCommonStats = (updater) => {
     const { accountId } = useWalletInterface();
     const [stats, setStats] = useState({
         depositAmount: 0,
-        tokenBalance : 0,
-        allowance : 0,
-        loading : true
+        tokenBalance: 0,
+        allowance: 0,
+        loading: true
     });
 
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                let account = ContractId.fromString(
-                    accountId.toString()
-                  ).toSolidityAddress()
+                let account;
+                let checkAddrss = ethers.utils.isAddress(accountId.toString());
+                if (checkAddrss) {
+                    account = accountId.toString();
+                } else {
+                    account = ContractId.fromString(
+                        accountId.toString()
+                    ).toSolidityAddress()
+                }
+
                 let tc = getContract();
                 let tokenB = await tc.balanceOf(account)
-                tokenB = tokenB.toString() / Math.pow(10,6);
+                tokenB = tokenB.toString() / Math.pow(10, 6);
 
-                let tokenA = await tc.allowance(account , contractAddress)
-                tokenA = tokenA.toString() / Math.pow(10,6);
+                let tokenA = await tc.allowance(account, contractAddress)
+                tokenA = tokenA.toString() / Math.pow(10, 6);
 
-                // let owner = await tc.owner();
-                // console.log(owner);
-
-                
-               
                 //Deposit Amount
                 let contractQueryTx = new ContractCallQuery()
                     .setContractId(contractId)
@@ -55,32 +58,31 @@ export const useCommonStats = (updater) => {
                 let contractQuerySubmit = await contractQueryTx.execute(client);
                 let depositAmountResult = contractQuerySubmit.getInt256();
 
-                let contractQueryTx1 = new ContractCallQuery()
-                    .setContractId(contractId)
-                    .setGas(500000)
-                    .setFunction("owner");
-                let contractQuerySubmit1 = await contractQueryTx1.execute(client);
-                let depositAmountResult1 = contractQuerySubmit1.getAddress();
-
-                console.log(depositAmountResult1);
-
                 setStats({
                     depositAmount: depositAmountResult.toString(),
-                    tokenBalance : tokenB,
-                    allowance : tokenA,
-                    loading : false
+                    tokenBalance: tokenB,
+                    allowance: tokenA,
+                    loading: false
                 })
-                
+
             }
             catch (err) {
                 console.log(err.message);
             }
         }
-        
-        if(accountId){
+
+        if (accountId) {
             fetch()
         }
-    }, [updater,accountId])
+        else{
+            setStats({
+                depositAmount: 0,
+                tokenBalance: 0,
+                allowance: 0,
+                loading: true
+            })
+        }
+    }, [updater, accountId])
 
     return stats;
 }
@@ -89,66 +91,74 @@ export const useCommonStats = (updater) => {
 export const useWithdrawStats = (updater) => {
     const { accountId } = useWalletInterface();
     const [stats, setStats] = useState({
-        eligibleWithdrawals : 0,
-        loading : true
+        eligibleWithdrawals: 0,
+        loading: true
     });
 
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                let account = ContractId.fromString(
-                    accountId.toString()
-                  ).toSolidityAddress()
+                let account;
+                let checkAddrss = ethers.utils.isAddress(accountId.toString());
+                if (checkAddrss) {
+                    account = accountId.toString();
+                } else {
+                    account = ContractId.fromString(
+                        accountId.toString()
+                    ).toSolidityAddress()
+                }
                 //eligibleWithdrawals
 
                 let contractQueryTx2 = new ContractCallQuery()
                     .setContractId(contractId)
                     .setGas(500000)
-                    .setFunction("eligibleWithdrawals" , new ContractFunctionParameters()
-                    .addAddress(account));
+                    .setFunction("eligibleWithdrawals", new ContractFunctionParameters()
+                        .addAddress(account));
                 let contractQuerySubmit2 = await contractQueryTx2.execute(client);
                 let withdrawResult = contractQuerySubmit2.getInt256();
 
-                
-
-
-
                 setStats({
-                    loading : false,
-                    eligibleWithdrawals :withdrawResult.toString() 
+                    loading: false,
+                    eligibleWithdrawals: withdrawResult.toString()
                 })
-                
+
             }
             catch (err) {
                 console.log(err.message);
             }
         }
-        
-        if(accountId){
+
+        if (accountId) {
             fetch()
         }
-    }, [updater,accountId])
+        else {
+            setStats({
+                eligibleWithdrawals: 0,
+                loading: true
+            })
+        }
+    }, [updater, accountId])
 
     return stats;
 }
 
 
 export const useHomeStats = (updater) => {
-    
+
     const [stats, setStats] = useState({
         totalDeposits: 0,
-        depositAmount : 0,
-        totalHistoricalDeposits : 0,
-        totalWithdrawals : 0,
-        loading : true
+        depositAmount: 0,
+        totalHistoricalDeposits: 0,
+        totalWithdrawals: 0,
+        loading: true
     });
 
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                
+
                 //Deposit Amount
                 let contractQueryTx = new ContractCallQuery()
                     .setContractId(contractId)
@@ -178,26 +188,80 @@ export const useHomeStats = (updater) => {
                 let contractQuerySubmit3 = await contractQueryTx3.execute(client);
                 let depositAmountResult3 = contractQuerySubmit3.getInt256();
 
-                
+
 
                 setStats({
                     totalDeposits: depositAmountResult1.toString(),
-                    depositAmount : depositAmountResult.toString(),
-                    totalHistoricalDeposits : depositAmountResult2.toString(),
-                    totalWithdrawals : depositAmountResult3.toString(),
-                    loading : false
+                    depositAmount: depositAmountResult.toString(),
+                    totalHistoricalDeposits: depositAmountResult2.toString(),
+                    totalWithdrawals: depositAmountResult3.toString(),
+                    loading: false
                 })
-                
+
             }
             catch (err) {
                 console.log(err.message);
             }
         }
-        
-       
+
+
         fetch()
-    
+
     }, [updater])
 
     return stats;
 }
+
+
+export const useOwnerStats = (updater) => {
+    const { accountId } = useWalletInterface();
+    const [stats, setStats] = useState({
+        isOwner: false
+    });
+
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                let account;
+                let checkAddrss = ethers.utils.isAddress(accountId.toString());
+                if (checkAddrss) {
+                    account = accountId.toString();
+                } else {
+                    account = ContractId.fromString(
+                        accountId.toString()
+                    ).toSolidityAddress()
+                }
+                //Deposit Amount
+                let contractQueryTx = new ContractCallQuery()
+                    .setContractId(contractId)
+                    .setGas(500000)
+                    .setFunction("owner");
+                let contractQuerySubmit = await contractQueryTx.execute(client);
+                let depositAmountResult = contractQuerySubmit.getAddress();
+
+                setStats({
+                    isOwner: account.toLowerCase() === depositAmountResult.toString().toLowerCase() ? true : false
+                })
+
+            }
+            catch (err) {
+                console.log(err.message);
+            }
+        }
+
+        if (accountId) {
+            fetch()
+        }
+        else {
+            setStats({
+                isOwner: false
+            })
+        }
+
+    }, [updater, accountId])
+
+    return stats;
+}
+
+
