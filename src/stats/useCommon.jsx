@@ -13,9 +13,8 @@ import { useWalletInterface } from "../services/wallets/useWalletInterface";
 
 
 
-const operatorId = AccountId.fromString('0.0.15394357');
-const operatorKey = PrivateKey.fromString('3030020100300706052b8104000a0422042005b6db3141853fbebf8c2faf7e1c377ee78f249652848f75e11265d53512c4df');
-
+const operatorId = AccountId.fromString(process.env.REACT_APP_GAS_WALLET_ID);
+const operatorKey = PrivateKey.fromString(process.env.REACT_APP_GAS_WALLET_PVKEY);
 const client = Client.forTestnet().setOperator(operatorId, operatorKey);
 
 
