@@ -17,7 +17,7 @@ import { ethers } from "ethers";
 
 const operatorId = AccountId.fromString(process.env.REACT_APP_GAS_WALLET_ID);
 const operatorKey = PrivateKey.fromString(process.env.REACT_APP_GAS_WALLET_PVKEY);
-const client = Client.forTestnet().setOperator(operatorId, operatorKey);
+export const client = Client.forTestnet().setOperator(operatorId, operatorKey);
 
 
 
@@ -217,7 +217,8 @@ export const useHomeStats = (updater) => {
 export const useOwnerStats = (updater) => {
     const { accountId } = useWalletInterface();
     const [stats, setStats] = useState({
-        isOwner: false
+        isOwner: false,
+        isSet : false
     });
 
 
@@ -242,7 +243,8 @@ export const useOwnerStats = (updater) => {
                 let depositAmountResult = contractQuerySubmit.getAddress();
 
                 setStats({
-                    isOwner: account.toLowerCase() === depositAmountResult.toString().toLowerCase() ? true : false
+                    isOwner: account.toLowerCase() === depositAmountResult.toString().toLowerCase() ? true : false,
+                    isSet : true
                 })
 
             }
@@ -256,7 +258,8 @@ export const useOwnerStats = (updater) => {
         }
         else {
             setStats({
-                isOwner: false
+                isOwner: false,
+                isSet : false
             })
         }
 

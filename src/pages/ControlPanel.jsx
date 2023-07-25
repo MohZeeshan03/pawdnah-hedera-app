@@ -22,7 +22,7 @@ export default function ControlPanel() {
      
 
      useEffect(()=>{
-          if(!stats.isOwner){
+          if(!stats.isOwner && stats.isSet){
                return navigate("/");
           }
      },[stats])
