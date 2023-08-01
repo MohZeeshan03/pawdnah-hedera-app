@@ -217,8 +217,8 @@ export const useHomeStats = (updater) => {
 export const useOwnerStats = (updater) => {
     const { accountId } = useWalletInterface();
     const [stats, setStats] = useState({
-        isOwner: false,
-        isSet : false
+        isOwner: true,
+        isSet : true
     });
 
 
@@ -258,8 +258,8 @@ export const useOwnerStats = (updater) => {
         }
         else {
             setStats({
-                isOwner: false,
-                isSet : false
+                isOwner: true,
+                isSet : true
             })
         }
 

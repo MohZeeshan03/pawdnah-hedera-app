@@ -3,10 +3,11 @@ import { NavLink } from "react-router-dom";
 import ethIcon from "../assets/img/eth.png";
 import arrow from "../assets/icons/arrow.svg";
 import logo from "../assets/icons/logo.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHomeStats } from "../stats/useCommon";
 import Animation from "../components/Animation";
 import { TOKEN_DECIMALS } from "../config/constants";
+import TermModal from "../components/TermModal";
 // import { useWalletInterface } from "../services/wallets/useWalletInterface";
 // import { trimAddress } from "../config/constants";
 // import { WalletSelectionDialog } from "../components/WalletSelectionDialog";
@@ -14,7 +15,7 @@ import { TOKEN_DECIMALS } from "../config/constants";
 
 export default function Home() {
      const [show, setShow] = useState(false);
-     // const [open, setOpen] = useState(false);
+     const [open, setOpen] = useState(false);
      const stats = useHomeStats(1);
      // const { accountId, walletInterface } = useWalletInterface();
 
@@ -31,6 +32,15 @@ export default function Home() {
      //           setOpen(false);
      //      }
      // }, [accountId]);
+
+     useEffect(()=>{
+          let last_history = localStorage.getItem('term');
+          if(last_history === null || !last_history){
+               setOpen(true);
+          }
+     },[]);
+
+     
 
      return (
           <>
@@ -107,6 +117,7 @@ export default function Home() {
                          </div>
                     </section>
                </div>
+               <TermModal open={open} setOpen={setOpen} />
                {/* <WalletSelectionDialog open={open} onClose={() => setOpen(false)} /> */}
           </>
      )
