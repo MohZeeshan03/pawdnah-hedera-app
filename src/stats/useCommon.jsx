@@ -17,7 +17,7 @@ import { ethers } from "ethers";
 
 const operatorId = AccountId.fromString(process.env.REACT_APP_GAS_WALLET_ID);
 const operatorKey = PrivateKey.fromString(process.env.REACT_APP_GAS_WALLET_PVKEY);
-export const client = Client.forTestnet().setOperator(operatorId, operatorKey);
+export const client = Client.forMainnet().setOperator(operatorId, operatorKey);
 
 
 
