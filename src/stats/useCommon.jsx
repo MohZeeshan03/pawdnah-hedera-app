@@ -54,7 +54,7 @@ export const useCommonStats = (updater) => {
                 //Deposit Amount
                 let contractQueryTx = new ContractCallQuery()
                     .setContractId(contractId)
-                    .setGas(35000)
+                    .setGas(1000)
                     .setFunction("depositAmount");
                 let contractQuerySubmit = await contractQueryTx.execute(client);
                 let depositAmountResult = contractQuerySubmit.getInt256();
