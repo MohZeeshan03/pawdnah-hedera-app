@@ -4,16 +4,19 @@ import Switch from "react-switch";
 
 
 export default function TermModal({ open, setOpen }) {
-    const [html, setHTML] = useState({__html: ""});
+    const [html, setHTML] = useState({ __html: "" });
+    const [htmls, setHTMLS] = useState({ __html: "" });
     const count = useRef(0);
     const [accept, setAccept] = useState(false);
+    const [readmore, setReadmore] = useState(false);
 
     useEffect(() => {
         if (count.current === 0) {
             count.current = 1;
             fetch('../term.txt').then((res) => res.text())
                 .then((json) => {
-                    setHTML({__html: json});
+                    setHTML({ __html: json });
+                    setHTMLS({ __html: json.toString().slice(0, 700) });
                 })
         }
     }, []);
@@ -32,14 +35,22 @@ export default function TermModal({ open, setOpen }) {
 
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700" >
 
-                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600" style={{ "background": "#2757a4" }}>
+                        <h3 class="text-xl font-semibold text-white">
                             Terms of Service
                         </h3>
                     </div>
 
                     <div class="flex-auto overflow-y-auto relative p-4 max-h-[90vh]">
-                        <div dangerouslySetInnerHTML={html} />
+                        {readmore ? (
+                            <div dangerouslySetInnerHTML={html} />
+                        ) : (
+                            <>
+                                <div dangerouslySetInnerHTML={htmls} />
+                                <a href="#sec" onClick={()=>setReadmore(true)} className='text-blue-500'>Read more...</a>
+                            </>
+                        )}
+
                         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                             <h5>I accept the terms and conditions</h5>
                             <Switch onChange={(value) => setAccept(value)} checked={accept} />
