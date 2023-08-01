@@ -1,8 +1,8 @@
 export const networkConfig = {
   testnet: {
-    network: "testnet",
-    jsonRpcUrl: "https://testnet.hashio.io/api", // check out the readme for alternative RPC Relay urls
-    mirrorNodeUrl: "https://testnet.mirrornode.hedera.com",
-    chainId: "0x128",
+    network: "mainnet",
+    jsonRpcUrl: "https://mainnet.hashio.io/api", // check out the readme for alternative RPC Relay urls
+    mirrorNodeUrl: "https://mainnet.mirrornode.hedera.com",
+    chainId: "0x127",
   }
 }
