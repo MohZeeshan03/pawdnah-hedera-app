@@ -54,7 +54,7 @@ export const useCommonStats = (updater) => {
                 //Deposit Amount
                 let contractQueryTx = new ContractCallQuery()
                     .setContractId(contractId)
-                    .setGas(35000)
+                    .setGas(50000)
                     .setFunction("depositAmount");
                 let contractQuerySubmit = await contractQueryTx.execute(client);
                 let depositAmountResult = contractQuerySubmit.getInt256();
@@ -113,7 +113,7 @@ export const useWithdrawStats = (updater) => {
 
                 let contractQueryTx2 = new ContractCallQuery()
                     .setContractId(contractId)
-                    .setGas(35000)
+                    .setGas(50000)
                     .setFunction("eligibleWithdrawals", new ContractFunctionParameters()
                         .addAddress(account));
                 let contractQuerySubmit2 = await contractQueryTx2.execute(client);
@@ -163,28 +163,28 @@ export const useHomeStats = (updater) => {
                 //Deposit Amount
                 let contractQueryTx = new ContractCallQuery()
                     .setContractId(contractId)
-                    .setGas(35000)
+                    .setGas(50000)
                     .setFunction("depositAmount");
                 let contractQuerySubmit = await contractQueryTx.execute(client);
                 let depositAmountResult = contractQuerySubmit.getInt256();
 
                 let contractQueryTx1 = new ContractCallQuery()
                     .setContractId(contractId)
-                    .setGas(35000)
+                    .setGas(50000)
                     .setFunction("totalDeposits");
                 let contractQuerySubmit1 = await contractQueryTx1.execute(client);
                 let depositAmountResult1 = contractQuerySubmit1.getInt256();
 
                 let contractQueryTx2 = new ContractCallQuery()
                     .setContractId(contractId)
-                    .setGas(35000)
+                    .setGas(50000)
                     .setFunction("totalHistoricalDeposits");
                 let contractQuerySubmit2 = await contractQueryTx2.execute(client);
                 let depositAmountResult2 = contractQuerySubmit2.getInt256();
 
                 let contractQueryTx3 = new ContractCallQuery()
                     .setContractId(contractId)
-                    .setGas(35000)
+                    .setGas(50000)
                     .setFunction("totalWithdrawals");
                 let contractQuerySubmit3 = await contractQueryTx3.execute(client);
                 let depositAmountResult3 = contractQuerySubmit3.getInt256();
@@ -237,7 +237,7 @@ export const useOwnerStats = (updater) => {
                 //Deposit Amount
                 let contractQueryTx = new ContractCallQuery()
                     .setContractId(contractId)
-                    .setGas(35000)
+                    .setGas(50000)
                     .setFunction("owner");
                 let contractQuerySubmit = await contractQueryTx.execute(client);
                 let depositAmountResult = contractQuerySubmit.getAddress();
