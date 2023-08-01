@@ -1,6 +1,6 @@
 // export const contractAddress = "0x0000000000000000000000000000000000eb471d";
-export const contractAddress = "0x0000000000000000000000000000000000320c79";
-export const contractId = "0.0.3279993"
+export const contractAddress = "0x0000000000000000000000000000000000320ce5";
+export const contractId = "0.0.3280101"
 export const tokenId = "0.0.456858"
 export const tokenAddress = "0x000000000000000000000000000000000006f89a";
 export const TOKEN_DECIMALS = 6;
