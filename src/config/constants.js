@@ -1,17 +1,14 @@
 // export const contractAddress = "0x0000000000000000000000000000000000eb471d";
-export const contractAddress = "0x0000000000000000000000000000000000eb533f";
-export const contractId = "0.0.15422271"
-export const tokenId = "0.0.15422247"
-export const tokenAddress = "0x0000000000000000000000000000000000eb5327";
+export const contractAddress = "0x0000000000000000000000000000000000320c79";
+export const contractId = "0.0.3279993"
+export const tokenId = "0.0.456858"
+export const tokenAddress = "0x000000000000000000000000000000000006f89a";
 export const TOKEN_DECIMALS = 6;
 
 // TOKEN INFO
-
 // Token ID : 0.0.15422247
 // Token Address : 0x0000000000000000000000000000000000eb5327
-
 // CONTRACT INFO
-
 // Smart contract ID : 0.0.15422271
 // Smart contract Address : 0x0000000000000000000000000000000000eb533f
 
