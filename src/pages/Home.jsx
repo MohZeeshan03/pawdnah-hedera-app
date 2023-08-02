@@ -44,7 +44,7 @@ export default function Home() {
 
      return (
           <>
-               <div className="relative bg-black text-white min-h-screen">
+               <div className="relative bg-black text-white min-h-screen" style={{paddingBottom : "50px"}}>
                     <header className="max-w-5xl px-3 mx-auto flex flex-wrap justify-between items-center text-sm py-2">
                          <div className="flex items-center">
                               <a href="/" className="md:inline-block hidden mr-6"><img src={logo} className="h-20" alt="logo" /></a>
